@@ -40,6 +40,7 @@ class LoginView: UIView{
     }()
     let passwordTextField: UITextField = {
           let tf = UITextField(placeHolder: "Password")
+        tf.isSecureTextEntry = true;
           return tf
       }()
     
