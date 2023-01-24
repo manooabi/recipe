@@ -48,7 +48,7 @@ class SignupController: UIViewController{
        }()
        private let passwordConfirmTextField: UITextField = {
            let textField = UITextField()
-           textField.placeholder = "Re-Password"
+           textField.placeholder = "Confirm Password"
            textField.borderStyle = .roundedRect
            textField.heightAnchor.constraint(equalToConstant: 50).isActive = true
            textField.layer.borderWidth = 0.5
@@ -61,9 +61,9 @@ class SignupController: UIViewController{
 
        private let signUpButton: UIButton = {
            let button = UIButton()
-           button.setTitle("Sign Up", for: .normal)
+           button.setTitle("Register", for: .normal)
            button.setTitleColor(.white, for: .normal)
-           button.backgroundColor = .systemBlue
+           button.backgroundColor = .orange
            button.layer.cornerRadius = 5
            return button
        }()
@@ -72,14 +72,14 @@ class SignupController: UIViewController{
            let button = UIButton()
            button.setTitle("Log In", for: .normal)
            button.setTitleColor(.white, for: .normal)
-           button.backgroundColor = .systemGray
+           button.backgroundColor = .red
            button.layer.cornerRadius = 5
            return button
        }()
        
        private let titleLabel: UILabel = {
            let label = UILabel()
-           label.text = "Recipe Master"
+           label.text = "Recipe App"
            label.font = UIFont.systemFont(ofSize: 30, weight: .bold)
            label.textColor = .systemGray
            return label
@@ -99,7 +99,7 @@ class SignupController: UIViewController{
            self.view.addSubview(signUpButton)
            self.view.addSubview(loginButton)
            
-        print("any")
+      
            
            titleLabel.translatesAutoresizingMaskIntoConstraints = false
            usernameTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -152,10 +152,10 @@ class SignupController: UIViewController{
            let name = nameTextField.text!
            let password = passwordTextField.text!
            let confirm_password = passwordConfirmTextField.text!
-           print("here")
+        
            let params: [String: Any] = ["email": email, "password": password, "password_confirmation": confirm_password, "name": name]
            
-           let url = URL(string: "http://iosrecipeapp-env.eba-mensumeb.us-east-1.elasticbeanstalk.com/api/register")!
+           let url = URL(string: "https://foodapi-75l5.onrender.com/api/Users")!
            
            var request = URLRequest(url: url)
            request.httpMethod = "POST"
@@ -195,7 +195,7 @@ class SignupController: UIViewController{
        
        @objc func loginButtonTapped() {
            let loginViewController = LoginController()
-           UIView.transition(with: UIApplication.shared.windows.first!, duration: 0.5, options: .transitionFlipFromLeft, animations: {
+           UIView.transition(with: UIApplication.shared.windows.first!, duration: 0.5, options: .transitionFlipFromBottom, animations: {
                  UIApplication.shared.windows.first?.rootViewController = loginViewController
              }, completion: nil)
        }
