@@ -8,10 +8,16 @@
 
 import UIKit
 
+protocol SearchResultsViewControllerDelegate: AnyObject{
+    func searchResultsViewControllerDidTapItem(_ viewModel: TitlePreviewViewModel)
+}
+
 class SearchResultsViewController: UIViewController {
     
     
     public var titles: [Food] = [Food]()
+    
+    public weak var delegate: SearchResultsViewControllerDelegate?
 
     public let searchResultsCollectionView: UICollectionView = {
       
@@ -54,5 +60,20 @@ extension SearchResultsViewController: UICollectionViewDelegate,UICollectionView
         let title = titles[indexPath.row]
         cell.configure(with: title.photo ?? "")
         return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        
+        let tiltle = titles[indexPath.row]
+        let  titleName = tiltle.foodName ?? ""
+        APICaller.shared.getRecipe(with: titleName) { [weak self] result in
+            switch result{
+            case.success(let videoElement):
+                self?.delegate?.searchResultsViewControllerDidTapItem(TitlePreviewViewModel(title: tiltle.foodName ?? "", youtubeView: videoElement, titleOverview: tiltle.indegredients ?? ""))
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    
     }
 }

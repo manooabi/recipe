@@ -118,6 +118,20 @@ class LoginController: UIViewController {
                     UIView.transition(with: UIApplication.shared.windows.first!, duration: 0.5, options: .transitionFlipFromTop, animations: {
                           UIApplication.shared.windows.first?.rootViewController = signUpViewController
                       }, completion: nil)
+//                    let jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJKV1RTZXJ2aWNlQWNjZXNzVG9rZW4iLCJqdGkiOiI4YWFkMWZkOC0yYTdlLTRkNjUtYmJmZS1mMmY4ZmM3ZDlkZDMiLCJpYXQiOiIwMS8yNC8yMDIzIDA2OjE0OjI3IiwiVXNlcklkIjoiMSIsIlVzZXJOYW1lIjoiTWFub28iLCJFbWFpbCI6Im1hbm9vLmFiaGlsbGFzaEBnbWFpbC5jb20iLCJleHAiOjE2NzQ1NDE0NjcsImlzcyI6IkpXVEF1dGhlbnRpY2F0aW9uU2VydmVyIiwiYXVkIjoiSldUU2VydmljZVBvc3RtYW5DbGllbnQifQ.2KddXP7bj1jKkzCA4vsliri22-z0py662n3aHfwZDUw"
+//                    let components = jwt.components(separatedBy: ".")
+//                    guard components.count == 3 else { return }
+//                    let payloadData = Data(base64Encoded: components[1], options: .ignoreUnknownCharacters)!
+//                    do {
+//                        let json = try JSONSerialization.jsonObject(with:payloadData, options: [])
+//                        as! [String: Any]
+//                        let userId = json["userId"] as? String
+//                        print("User Id: \(userId)")
+//
+//                    } catch let error {
+//                        print(error)
+//
+//                    }
                 }
                 
                 @IBAction func loginButtonTapped(_ sender: Any){
@@ -147,8 +161,11 @@ class LoginController: UIViewController {
                             return
                         }
                         do{
-                            let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-                            let token = json?["token"] as? String
+                           // let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                            let loginResponse = try JSONDecoder().decode(Tokens.self, from: data)
+                            let userid = loginResponse.userId
+                            let token = loginResponse.token
+                            print(userid)
                             print(token)
                             
                             
