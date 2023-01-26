@@ -29,7 +29,7 @@ class RecipePersistanceManager{
         let context = appDelegate.persistentContainer.viewContext
         
         let item = RecipeItem(context: context)
-        
+        item.userId = Int64(userId)
         item.foodName = model.foodName
         item.foodId = Int64(model.foodId)
         item.categories = model.categories
@@ -44,7 +44,7 @@ class RecipePersistanceManager{
             completion(.failure(DatabaseError.failedToSaveData))
         }
     }
-    func fetchingTitlesFromDataBase(completion: @escaping (Result<[RecipeItem],Error>) -> Void){
+    func fetchingTitlesFromDataBase(completion: @escaping (Result<[RecipeItem], Error>) -> Void){
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else{
                
                return
@@ -55,7 +55,7 @@ class RecipePersistanceManager{
         
         do{
             
-             let titles = try context.fetch(request)
+           let titles = try context.fetch(request)
             completion(.success(titles))
             
         }catch{

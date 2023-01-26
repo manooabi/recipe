@@ -9,6 +9,8 @@
 import UIKit
 import JWTDecode
 
+public var userToken: String = ""
+public var userId: Int = 0
 class LoginController: UIViewController {
 
    let MainTabarViewCOntroller = MainTabBarViewController()
@@ -163,14 +165,14 @@ class LoginController: UIViewController {
                         do{
                            // let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
                             let loginResponse = try JSONDecoder().decode(Tokens.self, from: data)
-                            let userid = loginResponse.userId
-                            let token = loginResponse.token
-                            print(userid)
-                            print(token)
+                            userId = loginResponse.userId
+                            userToken = loginResponse.token!
+                            print(userId)
+                            print(userToken)
                             
                             
-                            UserDefaults.standard.set(token,forKey: "token")
-                            if((token) != nil){
+                            UserDefaults.standard.set(userToken,forKey: "token")
+                            if((userToken) != nil){
                                 DispatchQueue.main.async {
                                     let mainTabBarViewController = MainTabBarViewController()
                                     UIView.transition(with: UIApplication.shared.windows.first!, duration: 0.5, options: .transitionFlipFromLeft, animations: {
