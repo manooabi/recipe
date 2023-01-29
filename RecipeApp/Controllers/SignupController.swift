@@ -148,13 +148,16 @@ class SignupController: UIViewController{
        }
        
        @objc func signupButtonTapped() {
+          let name = nameTextField.text!
            let email = usernameTextField.text!
-           let name = nameTextField.text!
+         
            let password = passwordTextField.text!
            let confirm_password = passwordConfirmTextField.text!
         
-           let params: [String: Any] = ["email": email, "password": password, "password_confirmation": confirm_password, "name": name]
-           
+        
+        
+           let params: [String: Any] = [ "userName": name, "email": email, "password": password, "password_confirmation": confirm_password]
+       
            let url = URL(string: "https://foodapi-75l5.onrender.com/api/Users")!
            
            var request = URLRequest(url: url)
@@ -176,17 +179,19 @@ class SignupController: UIViewController{
                    return
                }
                do{
-                   let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-                   let token = json?["token"] as? String
-                   UserDefaults.standard.set(token,forKey: "token")
-                   if((token) != nil){
+                   //let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                  // let token = json?["token"] as? String
+                  // UserDefaults.standard.set(token,forKey: "token")
+                  // if((token) != nil){
+                let json = try JSONSerialization.jsonObject(with: data, options: [])as? [String: Any]
+                    
                        DispatchQueue.main.async {
-                           let mainTabBarViewController = MainTabBarViewController()
+                           let mainTabBarViewController = LoginController()
                            UIView.transition(with: UIApplication.shared.windows.first!, duration: 0.5, options: .transitionFlipFromLeft, animations: {
                                UIApplication.shared.windows.first?.rootViewController = mainTabBarViewController
                            }, completion: nil)
                        }
-                   }
+                   
                }catch let error{
                    print(error)
                }

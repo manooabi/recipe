@@ -37,6 +37,7 @@ class RecipePersistanceManager{
         item.photo = model.photo
         item.descriptions = model.description
         
+        print(item.userId)
         do{
             try context.save()
             completion(.success(()))
@@ -49,9 +50,15 @@ class RecipePersistanceManager{
                
                return
            }
-           let context = appDelegate.persistentContainer.viewContext
+//           let context = appDelegate.persistentContainer.viewContext
         let request: NSFetchRequest<RecipeItem>
         request = RecipeItem.fetchRequest()
+        
+        let userid = userId
+        request.predicate = NSPredicate(
+            format: "userId == %i", userid
+        )
+         let context = appDelegate.persistentContainer.viewContext
         
         do{
             
