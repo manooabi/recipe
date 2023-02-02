@@ -79,7 +79,7 @@ class SignupController: UIViewController{
        
        private let titleLabel: UILabel = {
            let label = UILabel()
-           label.text = "Recipe App"
+           label.text = "Sign Up"
            label.font = UIFont.systemFont(ofSize: 30, weight: .bold)
            label.textColor = .systemGray
            return label
@@ -186,9 +186,9 @@ class SignupController: UIViewController{
                 let json = try JSONSerialization.jsonObject(with: data, options: [])as? [String: Any]
                     
                        DispatchQueue.main.async {
-                           let mainTabBarViewController = LoginController()
-                           UIView.transition(with: UIApplication.shared.windows.first!, duration: 0.5, options: .transitionFlipFromLeft, animations: {
-                               UIApplication.shared.windows.first?.rootViewController = mainTabBarViewController
+                           let LoginVController = LoginController()
+                        UIView.transition(with: UIApplication.shared.windows.first!, duration: 0.5, options: .transitionFlipFromTop, animations: {
+                               UIApplication.shared.windows.first?.rootViewController = LoginVController
                            }, completion: nil)
                        }
                    

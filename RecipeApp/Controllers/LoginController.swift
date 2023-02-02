@@ -175,7 +175,7 @@ class LoginController: UIViewController {
                             if((userToken) != nil){
                                 DispatchQueue.main.async {
                                     let mainTabBarViewController = MainTabBarViewController()
-                                    UIView.transition(with: UIApplication.shared.windows.first!, duration: 0.5, options: .transitionFlipFromLeft, animations: {
+                                    UIView.transition(with: UIApplication.shared.windows.first!, duration: 0.5, options: .transitionFlipFromTop, animations: {
                                         UIApplication.shared.windows.first?.rootViewController = mainTabBarViewController
                                     }, completion: nil)
                                 }
